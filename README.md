@@ -72,29 +72,54 @@ A personal cloud engineering portfolio hosted on AWS using a **production-style 
 
 ### 📐 Request Flow
 
-```
-Developer                    AWS
-────────                    ───
-  │
-  ├── git push main ──────► GitHub
-  │                           │
-  │                    ┌──────┴──────┐
-  │                    │ CodePipeline │
-  │                    └──────┬──────┘
-  │                           │
-  │                    ┌──────┴──────┐
-  │                    │  CodeBuild  │
-  │                    └──┬──────┬───┘
-  │                       │      │
-  │               s3 sync ▼      ▼ cache invalidation
-  │                    ┌────┐  ┌────────────┐
-  │                    │ S3 │  │ CloudFront │
-  │                    └────┘  └─────┬──────┘
-  │                                  │
-User ── HTTPS ── Route 53 ──────────►│
-                                     ▼
-                              Edge location
-                           (cached response)
+```mermaid
+flowchart LR
+    subgraph DEV["<b>🧑‍💻 Developer</b>"]
+        A["<b>git push</b><br>main branch"]
+    end
+
+    subgraph CICD["<b>🔄 CI / CD</b>"]
+        B["<b>📥 GitHub</b><br>Webhook Trigger"]
+        C["<b>⚙️ CodePipeline</b><br>Orchestration"]
+        D["<b>🔨 CodeBuild</b><br>buildspec.yml"]
+    end
+
+    subgraph INFRA["<b>☁️ AWS Infrastructure</b>"]
+        E["<b>🗄️ S3</b><br>Private Origin"]
+        F["<b>🌐 CloudFront</b><br>Edge CDN + TLS"]
+        G["<b>📍 Route 53</b><br>DNS Resolution"]
+        H["<b>🔐 ACM</b><br>TLS Certificate"]
+    end
+
+    subgraph CLIENT["<b>👤 End User</b>"]
+        I["<b>🌍 Browser</b><br>HTTPS Request"]
+    end
+
+    A -- "push event" --> B
+    B --> C
+    C --> D
+    D -- "aws s3 sync" --> E
+    D -- "cache invalidation" --> F
+
+    I -- "shaunvividszportfolio.com" --> G
+    G -- "A Record (Alias)" --> F
+    H -. "TLS termination" .-> F
+    F -- "OAC fetch" --> E
+    F -- "cached response" --> I
+
+    style DEV fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
+    style CICD fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style INFRA fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#713f12
+    style CLIENT fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px,color:#581c87
+    style A fill:#bfdbfe,stroke:#3b82f6,stroke-width:1px,color:#1e3a5f
+    style B fill:#bbf7d0,stroke:#22c55e,stroke-width:1px,color:#14532d
+    style C fill:#bbf7d0,stroke:#22c55e,stroke-width:1px,color:#14532d
+    style D fill:#bbf7d0,stroke:#22c55e,stroke-width:1px,color:#14532d
+    style E fill:#fef08a,stroke:#eab308,stroke-width:1px,color:#713f12
+    style F fill:#fef08a,stroke:#eab308,stroke-width:1px,color:#713f12
+    style G fill:#fef08a,stroke:#eab308,stroke-width:1px,color:#713f12
+    style H fill:#fef08a,stroke:#eab308,stroke-width:1px,color:#713f12
+    style I fill:#e9d5ff,stroke:#a855f7,stroke-width:1px,color:#581c87
 ```
 
 ---
@@ -174,15 +199,21 @@ User ── HTTPS ── Route 53 ──────────►│
 
 ### Pipeline Architecture
 
-```
-┌─────────────────────────────────────────────────────┐
-│                   CodePipeline                       │
-├──────────────┬──────────────┬───────────────────────┤
-│ 📥 Source     │ 🔨 Build     │ 📤 Deploy             │
-│              │              │                       │
-│ GitHub       │ CodeBuild    │ S3 sync               │
-│ main branch  │ buildspec.yml│ CloudFront invalidate  │
-└──────────────┴──────────────┴───────────────────────┘
+```mermaid
+flowchart LR
+    subgraph PIPE["<b>⚙️ CodePipeline</b>"]
+        direction LR
+        S["<b>📥 Source</b><br>GitHub<br>main branch"]
+        B["<b>🔨 Build</b><br>CodeBuild<br>buildspec.yml"]
+        D["<b>📤 Deploy</b><br>S3 sync +<br>CloudFront invalidate"]
+    end
+
+    S --> B --> D
+
+    style PIPE fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style S fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a5f
+    style B fill:#fef9c3,stroke:#ca8a04,stroke-width:1px,color:#713f12
+    style D fill:#dcfce7,stroke:#22c55e,stroke-width:1px,color:#14532d
 ```
 
 ### 🔨 buildspec.yml

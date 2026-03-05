@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shaun | AWS Cloud Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Shaun's AWS cloud portfolio showcasing real-world projects on S3, CloudFront, VPC, Lambda, and more." />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --bg-alt: #111827;
+      --bg-card: rgba(17, 24, 39, 0.7);
+      --text: #f1f5f9;
+      --text-soft: #94a3b8;
+      --accent: #3b82f6;
+      --accent-2: #8b5cf6;
+      --accent-3: #06b6d4;
+      --accent-soft: rgba(59, 130, 246, 0.12);
+      --border: rgba(148, 163, 184, 0.12);
+      --border-glow: rgba(59, 130, 246, 0.25);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.4);
+      --glass: rgba(15, 23, 42, 0.6);
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* Ambient background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      right: -10%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* ── Header ── */
+
+    header {
+      background: rgba(11, 15, 26, 0.85);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+      gap: 0.75rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.15);
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .nav-title span:first-child {
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: var(--text);
+    }
+
+    .nav-title span:last-child {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 1px;
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-glow);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
+      color: #c4b5fd;
+      font-size: 0.82rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all var(--transition);
+    }
+
+    .nav-cta:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.2));
+      border-color: rgba(139, 92, 246, 0.5);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+
+    .nav-cta span.icon {
+      font-size: 0.85rem;
+    }
+
+    /* ── Mobile tab bar ── */
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0 0 0.7rem;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tab {
+      flex-shrink: 0;
+      padding: 0.3rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      transition: all var(--transition);
+    }
+
+    .nav-tab:hover {
+      border-color: var(--border-glow);
+      color: var(--text);
+    }
+
+    /* ── Main ── */
+
+    main {
+      flex: 1;
+      padding: 2rem 0 4rem;
+    }
+
+    section {
+      padding: 3rem 0;
+    }
+
+    /* ── Section divider ── */
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+      margin: 0.5rem 0;
+    }
+
+    /* ── Animations ── */
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.7s ease-out both;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    /* ── Hero ── */
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      font-size: 0.78rem;
+      color: #4ade80;
+      margin-bottom: 1.2rem;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.9rem;
+      font-weight: 800;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-soft);
+      margin-bottom: 1.4rem;
+      line-height: 1.7;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .tag {
+      padding: 0.3rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      transition: all var(--transition);
+    }
+
+    .tag:hover {
+      border-color: var(--border-glow);
+      color: var(--accent);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.85rem 1.3rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.35), 0 10px 30px rgba(99, 102, 241, 0.25);
+      width: 100%;
+      transition: all var(--transition);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.5), 0 15px 40px rgba(99, 102, 241, 0.35);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.82rem 1.3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      cursor: pointer;
+      width: 100%;
+      transition: all var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--border-glow);
+      color: var(--text);
+      background: rgba(59, 130, 246, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary .icon,
+    .btn-ghost .icon {
+      font-size: 1rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-meta-item {
+      padding: 0.6rem 0;
+      border-left: 2px solid var(--border);
+      padding-left: 0.75rem;
+      transition: border-color var(--transition);
+    }
+
+    .hero-meta-item:hover {
+      border-left-color: var(--accent);
+    }
+
+    .hero-meta-item .label {
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.68rem;
+      color: #64748b;
+    }
+
+    .hero-meta-item .value {
+      font-weight: 500;
+      margin-top: 0.2rem;
+      color: var(--text-soft);
+    }
+
+    /* ── Hero card (glassmorphism) ── */
+
+    .hero-card {
+      background: var(--glass);
+      border-radius: var(--radius-xl);
+      padding: 1.6rem 1.4rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .hero-card-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #64748b;
+    }
+
+    .hero-card-metric {
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+      margin-top: 0.25rem;
+    }
+
+    .hero-card-metric .value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-card-metric .sublabel {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .hero-card-chip {
+      padding: 0.28rem 0.7rem;
+      border-radius: 8px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .hero-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .metric-card {
+      padding: 0.85rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.5);
+      font-size: 0.78rem;
+      transition: all var(--transition);
+    }
+
+    .metric-card:hover {
+      border-color: var(--border-glow);
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .metric-label {
+      color: #64748b;
+      margin-bottom: 0.3rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-value {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.35rem;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      color: var(--text-soft);
+    }
+
+    .legend-swatch {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+    }
+
+    .legend-swatch.alt {
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+    }
+
+    /* ── Sections ── */
+
+    .section-header {
+      margin-bottom: 2rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    /* ── Projects ── */
+
+    .grid-projects {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .project-card {
+      border-radius: var(--radius-lg);
+      background: var(--glass);
+      border: 1px solid var(--border);
+      padding: 1.3rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .project-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 30px rgba(59, 130, 246, 0.08);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card:nth-child(1)::before { background: linear-gradient(90deg, #06b6d4, #3b82f6); }
+    .project-card:nth-child(2)::before { background: linear-gradient(90deg, #22c55e, #06b6d4); }
+    .project-card:nth-child(3)::before { background: linear-gradient(90deg, #8b5cf6, #ec4899); }
+    .project-card:nth-child(4)::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+
+    .project-number {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: rgba(148, 163, 184, 0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .project-pill {
+      padding: 0.2rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+    }
+
+    .project-card:nth-child(1) .project-pill { background: rgba(6, 182, 212, 0.12); color: #22d3ee; }
+    .project-card:nth-child(2) .project-pill { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+    .project-card:nth-child(3) .project-pill { background: rgba(139, 92, 246, 0.12); color: #a78bfa; }
+    .project-card:nth-child(4) .project-pill { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
+
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .project-desc {
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      line-height: 1.65;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .meta-chip {
+      padding: 0.18rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.5);
+      transition: all var(--transition);
+    }
+
+    .meta-chip:hover {
+      border-color: var(--border-glow);
+      color: var(--accent);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+      font-size: 0.82rem;
+    }
+
+    .project-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--accent);
+      font-weight: 500;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      transition: all var(--transition);
+    }
+
+    .project-links a:hover {
+      background: var(--accent-soft);
+      color: #93c5fd;
+    }
+
+    .project-links .icon {
+      font-size: 0.85rem;
+    }
+
+    /* ── Skills ── */
+
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.6rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      color: var(--text-soft);
+      transition: all var(--transition);
+    }
+
+    .pill:hover {
+      border-color: var(--border-glow);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .skills-card {
+      padding: 1.3rem 1.2rem;
+      border-radius: var(--radius-lg);
+      background: var(--glass);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      font-size: 0.84rem;
+      transition: all var(--transition);
+    }
+
+    .skills-card:hover {
+      border-color: var(--border-glow);
+    }
+
+    .skills-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .skills-list {
+      list-style: none;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .skills-list li {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-list li:last-child {
+      border-bottom: none;
+    }
+
+    .skills-list .label {
+      color: #64748b;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .skills-list .value {
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    /* ── Contact ── */
+
+    .contact {
+      border-radius: var(--radius-xl);
+      padding: 2rem 1.6rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.06), rgba(6, 182, 212, 0.04));
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 0 60px rgba(59, 130, 246, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    }
+
+    .contact-text h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .contact-text p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .contact-note {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-top: 0.4rem;
+    }
+
+    /* ── Footer ── */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.2rem 0 1.6rem;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.78rem;
+    }
+
+    .footer-links a {
+      color: #64748b;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ── Responsive ── */
+
+    @media (min-width: 640px) {
+      .hero-meta {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero-actions {
+        flex-direction: row;
+      }
+
+      .btn-primary,
+      .btn-ghost {
+        width: auto;
+      }
+
+      .grid-projects {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .contact-actions {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .shell {
+        padding: 0 2rem;
+      }
+
+      .nav {
+        padding: 0.9rem 0;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 0.88rem;
+      }
+
+      .nav-tabs {
+        display: none;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: 2.8rem;
+      }
+
+      .hero-card {
+        padding: 1.8rem;
+      }
+
+      .hero-card-grid {
+        gap: 0.85rem;
+      }
+
+      .grid-projects {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .skills-layout {
+        grid-template-columns: minmax(0, 2.3fr) minmax(0, 2fr);
+      }
+
+      .contact {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2.5rem 2.5rem;
+      }
+
+      .footer-inner {
+        flex-direction: row;
+      }
+
+      section {
+        padding: 3.5rem 0;
+      }
+    }
+
+    @media (min-width: 1080px) {
+      .hero-title {
+        font-size: 3.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header>
+      <div class="shell">
+        <div class="nav">
+          <div class="nav-left">
+            <div class="avatar">S</div>
+            <div class="nav-title">
+              <span>Shaun</span>
+              <span>AWS Cloud · Dublin, IE</span>
+            </div>
+          </div>
+          <div class="nav-right">
+            <nav class="nav-links">
+              <a href="#hero">Home</a>
+              <a href="#projects">Projects</a>
+              <a href="#skills">Skills</a>
+              <a href="#architecture">Architecture</a>
+              <a href="#contact">Contact</a>
+            </nav>
+            <a class="nav-cta" href="https://github.com/shaunniee" target="_blank" rel="noopener">
+              GitHub
+              <span class="icon">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile section tabs -->
+        <div class="nav-tabs">
+          <a class="nav-tab" href="#hero">Home</a>
+          <a class="nav-tab" href="#projects">Projects</a>
+          <a class="nav-tab" href="#skills">Skills</a>
+          <a class="nav-tab" href="#architecture">Architecture</a>
+          <a class="nav-tab" href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section id="hero">
+        <div class="shell hero-layout">
+          <div>
+            <div class="badge animate-in">
+              <span class="badge-dot"></span>
+              Open to AWS / Cloud Engineering roles
+            </div>
+
+            <h1 class="hero-title animate-in delay-1">
+              Designing <span class="highlight">practical AWS architectures</span> for real workloads.
+            </h1>
+
+            <p class="hero-subtitle animate-in delay-2">
+              I build and document AWS solutions end-to-end: static sites on S3 + CloudFront, 3-tier VPC apps, and serverless
+              systems with Lambda, API Gateway and DynamoDB. Everything here is actually deployed and cost-aware.
+            </p>
+
+            <div class="hero-tags animate-in delay-3">
+              <span class="tag">AWS SAA-C03</span>
+              <span class="tag">AWS Developer Associate (in progress)</span>
+              <span class="tag">S3 · CloudFront · WAF · CI/CD</span>
+            </div>
+
+            <div class="hero-actions animate-in delay-4">
+              <a class="btn-primary" href="#projects">
+                View portfolio
+                <span class="icon">↓</span>
+              </a>
+              <a class="btn-ghost" href="Shaun-CV.pdf" target="_blank" rel="noopener">
+                Download CV
+                <span class="icon">📄</span>
+              </a>
+            </div>
+
+            <div class="hero-meta animate-in delay-5">
+              <div class="hero-meta-item">
+                <span class="label">Focus</span>
+                <span class="value">Cloud architecture & implementation</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="label">Location</span>
+                <span class="value">Dublin, Ireland</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="label">Stack</span>
+                <span class="value">AWS · TypeScript · React · Node</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-card animate-in delay-3" aria-label="Portfolio at a glance">
+            <div class="hero-card-header">
+              <div>
+                <p class="hero-card-title">Portfolio snapshot</p>
+                <div class="hero-card-metric">
+                  <span class="value">4</span>
+                  <span class="sublabel">AWS projects</span>
+                </div>
+              </div>
+              <div class="hero-card-chip">Hands-on · Not slideware</div>
+            </div>
+
+            <div class="hero-card-grid">
+              <div class="metric-card">
+                <div class="metric-label">Static + edge</div>
+                <div class="metric-value">S3 · CloudFront · CI/CD</div>
+                <div class="legend">
+                  <div class="legend-item">
+                    <span class="legend-swatch"></span>
+                    Portfolio site
+                  </div>
+                </div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">3-tier app</div>
+                <div class="metric-value">VPC · ALB · EC2 · RDS</div>
+                <div class="legend">
+                  <div class="legend-item">
+                    <span class="legend-swatch alt"></span>
+                    Blog App
+                  </div>
+                </div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Serverless full-stack</div>
+                <div class="metric-value">Lambda · API GW · DynamoDB</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Event-driven</div>
+                <div class="metric-value">Step Functions · SQS · Saga</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects">
+        <div class="shell">
+          <div class="section-divider"></div>
+          <div class="section-header">
+            <p class="section-label">Portfolio</p>
+            <h2 class="section-title">Selected AWS projects</h2>
+            <p class="section-subtitle">
+              Each project is deployed on AWS with notes on architecture, trade-offs and operations.
+            </p>
+          </div>
+
+          <div class="grid-projects">
+            <!-- Project 1: Static Portfolio Site -->
+            <article class="project-card">
+              <span class="project-number">01</span>
+              <div class="project-pill">Static site · Edge</div>
+              <h3 class="project-title">Static Portfolio Site (this site)</h3>
+              <p class="project-desc">
+                Static portfolio on a private S3 bucket delivered globally via CloudFront with OAC. Custom domain on Route 53 with ACM TLS,
+                CI/CD via CodePipeline + CodeBuild with automatic cache invalidation, and CloudWatch alarms for 5xx monitoring.
+              </p>
+              <div class="project-meta">
+                <span class="meta-chip">S3 (private + OAC)</span>
+                <span class="meta-chip">CloudFront</span>
+                <span class="meta-chip">Route 53 + ACM</span>
+                <span class="meta-chip">CodePipeline + CodeBuild</span>
+                <span class="meta-chip">CloudWatch alarms</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/shaunniee/AWS-PORTFOLIO-WEBSITE" target="_blank" rel="noopener">
+                  <span class="icon">↗</span> View code
+                </a>
+                <a href="https://www.shaunvividszportfolio.com" target="_blank" rel="noopener">
+                  <span class="icon">🌐</span> Live site
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 2: Three-Tier Blog App -->
+            <article class="project-card">
+              <span class="project-number">02</span>
+              <div class="project-pill">VPC · 3-tier</div>
+              <h3 class="project-title">Blog App · Three-Tier Architecture</h3>
+              <p class="project-desc">
+                Production-style 3-tier web app: React SPA on S3/CloudFront, Node.js/Express on EC2 Auto Scaling behind an internal ALB,
+                and RDS PostgreSQL in isolated private subnets. API Gateway as the public entry point, Cognito JWT auth, bastion host for admin access,
+                and full CI/CD with CodePipeline + ECR.
+              </p>
+              <div class="project-meta">
+                <span class="meta-chip">VPC (6 subnets, 2 AZs)</span>
+                <span class="meta-chip">ALB + EC2 Auto Scaling</span>
+                <span class="meta-chip">API Gateway</span>
+                <span class="meta-chip">RDS PostgreSQL (Multi-AZ)</span>
+                <span class="meta-chip">Cognito</span>
+                <span class="meta-chip">CodePipeline + ECR</span>
+                <span class="meta-chip">Terraform</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/shaunniee" target="_blank" rel="noopener">
+                  <span class="icon">↗</span> View code
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 3: Serverless Blog Platform -->
+            <article class="project-card">
+              <span class="project-number">03</span>
+              <div class="project-pill">Serverless · Full-stack</div>
+              <h3 class="project-title">Serverless Blog Platform</h3>
+              <p class="project-desc">
+                Production-style fully serverless blog with two frontends (public + admin CMS), two separate API Gateways with different auth levels,
+                6 single-purpose Lambda functions with per-function IAM, DynamoDB, EventBridge for async decoupling,
+                and canary deployments via CodeDeploy with automatic rollback. 100% Terraform.
+              </p>
+              <div class="project-meta">
+                <span class="meta-chip">Lambda (×6)</span>
+                <span class="meta-chip">API Gateway (×2)</span>
+                <span class="meta-chip">DynamoDB</span>
+                <span class="meta-chip">Cognito</span>
+                <span class="meta-chip">EventBridge</span>
+                <span class="meta-chip">S3 + CloudFront</span>
+                <span class="meta-chip">Terraform</span>
+                <span class="meta-chip">X-Ray</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/shaunniee" target="_blank" rel="noopener">
+                  <span class="icon">↗</span> View code
+                </a>
+                <a href="https://www.sblog.stsproj.com" target="_blank" rel="noopener">
+                  <span class="icon">🌐</span> Live site
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 4: Serverless Ordering System -->
+            <article class="project-card">
+              <span class="project-number">04</span>
+              <div class="project-pill">Serverless · Event-driven</div>
+              <h3 class="project-title">Serverless Ordering System</h3>
+              <p class="project-desc">
+                High-scale event-driven order processing pipeline designed for 10,000+ orders/min. Uses the Saga pattern via Step Functions Express
+                for distributed transactions with automatic compensation on failure. SQS for buffering and retry, DynamoDB with dual-layer idempotency,
+                and EventBridge for domain event publishing. Fully IaC with Terraform.
+              </p>
+              <div class="project-meta">
+                <span class="meta-chip">Step Functions (Saga)</span>
+                <span class="meta-chip">Lambda</span>
+                <span class="meta-chip">DynamoDB</span>
+                <span class="meta-chip">SQS + DLQ</span>
+                <span class="meta-chip">API Gateway</span>
+                <span class="meta-chip">EventBridge</span>
+                <span class="meta-chip">Terraform</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/shaunniee" target="_blank" rel="noopener">
+                  <span class="icon">↗</span> View code
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills">
+        <div class="shell">
+          <div class="section-divider"></div>
+          <div class="section-header">
+            <p class="section-label">Expertise</p>
+            <h2 class="section-title">Skills & focus areas</h2>
+            <p class="section-subtitle">
+              I care about combining clear architecture thinking with hands-on implementation.
+            </p>
+          </div>
+
+          <div class="skills-layout">
+            <div>
+              <h3 style="font-size:0.92rem; margin-bottom:0.5rem;">Core AWS stack</h3>
+              <div class="pill-row" style="margin-bottom:1.1rem;">
+                <span class="pill">VPC · Subnets · Routing</span>
+                <span class="pill">ALB / NLB</span>
+                <span class="pill">EC2 · Auto Scaling</span>
+                <span class="pill">RDS · DynamoDB</span>
+                <span class="pill">S3 · CloudFront</span>
+                <span class="pill">WAF · Shield</span>
+                <span class="pill">IAM · Cognito</span>
+              </div>
+
+              <h3 style="font-size:0.92rem; margin-bottom:0.5rem;">Modern patterns</h3>
+              <div class="pill-row">
+                <span class="pill">Serverless (Lambda)</span>
+                <span class="pill">Event-driven (SQS, SNS)</span>
+                <span class="pill">Streaming (Kinesis)</span>
+                <span class="pill">Document processing (Textract)</span>
+                <span class="pill">AI on AWS (Bedrock)</span>
+                <span class="pill">Observability (CloudWatch)</span>
+                <span class="pill">CI/CD (CodePipeline)</span>
+              </div>
+            </div>
+
+            <div class="skills-card">
+              <h3>How I work</h3>
+              <ul class="skills-list">
+                <li>
+                  <span class="label">Architecture first</span>
+                  <span class="value">Diagram → decisions → build</span>
+                </li>
+                <li>
+                  <span class="label">Security</span>
+                  <span class="value">Least privilege, no wildcards by default</span>
+                </li>
+                <li>
+                  <span class="label">Cost awareness</span>
+                  <span class="value">Right-sized, with trade-offs written down</span>
+                </li>
+                <li>
+                  <span class="label">Documentation</span>
+                  <span class="value">README + diagrams + troubleshooting</span>
+                </li>
+                <li>
+                  <span class="label">Tooling</span>
+                  <span class="value">GitHub · VS Code · IaC where it helps</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section id="architecture">
+        <div class="shell">
+          <div class="section-divider"></div>
+          <div class="section-header">
+            <p class="section-label">Design Philosophy</p>
+            <h2 class="section-title">Architecture approach</h2>
+            <p class="section-subtitle">
+              I focus on patterns: separation of tiers, blast radius reduction and realistic DR for the situation.
+            </p>
+          </div>
+
+          <div class="skills-layout">
+            <div class="skills-card">
+              <h3>Patterns I lean on</h3>
+              <ul class="skills-list">
+                <li>
+                  <span class="label">Static + edge</span>
+                  <span class="value">S3 + CloudFront + WAF for low-ops sites</span>
+                </li>
+                <li>
+                  <span class="label">3-tier apps</span>
+                  <span class="value">Public ALB, private app, private DB</span>
+                </li>
+                <li>
+                  <span class="label">Serverless backends</span>
+                  <span class="value">API Gateway → Lambda → DynamoDB/S3</span>
+                </li>
+                <li>
+                  <span class="label">Async workloads</span>
+                  <span class="value">SQS + DLQ to protect callers</span>
+                </li>
+                <li>
+                  <span class="label">Streaming</span>
+                  <span class="value">Kinesis for near real-time views</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="skills-card">
+              <h3>What this portfolio shows</h3>
+              <ul class="skills-list">
+                <li>
+                  <span class="label">End-to-end delivery</span>
+                  <span class="value">From idea → deployed workload</span>
+                </li>
+                <li>
+                  <span class="label">Troubleshooting</span>
+                  <span class="value">DNS, TLS, CI/CD and IAM issues</span>
+                </li>
+                <li>
+                  <span class="label">Trade-offs</span>
+                  <span class="value">Called out in each README</span>
+                </li>
+                <li>
+                  <span class="label">Growth path</span>
+                  <span class="value">Room for multi-region, DR, IaC</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact">
+        <div class="shell">
+          <div class="contact">
+            <div class="contact-text">
+              <h2>Let’s talk about AWS and real workloads</h2>
+              <p>
+                If you’re hiring for cloud, platform or AWS-focused roles and want someone who actually builds and
+                documents things end-to-end, I’d be happy to chat.
+              </p>
+            </div>
+            <div>
+              <div class="contact-actions">
+                <a class="btn-primary" href="mailto:devsts14@gmail.com">
+                  Email me
+                  <span class="icon">✉️</span>
+                </a>
+                <a class="btn-ghost" href="https://www.linkedin.com/in/shaun-vivian-dsouza-b12a73176" target="_blank" rel="noopener">
+                  LinkedIn
+                  <span class="icon">↗</span>
+                </a>
+              </div>
+              <p class="contact-note">
+                Based in Dublin, open to remote-friendly or hybrid roles across Ireland and the EU.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="shell footer-inner">
+        <span>© <span id="year"></span> Shaun. Built on AWS S3 + CloudFront.</span>
+        <div class="footer-links">
+          <a href="https://github.com/shaunniee" target="_blank" rel="noopener">GitHub</a>
+          <a href="#hero">Back to top</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
