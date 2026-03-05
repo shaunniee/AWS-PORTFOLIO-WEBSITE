@@ -12,28 +12,28 @@
 
   <style>
     :root {
-      --bg:        #fafafa;
+      --bg:        #faf8f5;
       --surface:   #ffffff;
-      --text:      #1e293b;
-      --text-2:    #475569;
-      --text-3:    #94a3b8;
-      --accent:    #2563eb;
-      --accent-bg: #eff6ff;
-      --green:     #16a34a;
-      --green-bg:  #f0fdf4;
-      --purple:    #7c3aed;
-      --purple-bg: #f5f3ff;
-      --amber:     #d97706;
-      --amber-bg:  #fffbeb;
-      --cyan:      #0891b2;
-      --cyan-bg:   #ecfeff;
-      --red:       #dc2626;
-      --red-bg:    #fef2f2;
-      --border:    #e2e8f0;
+      --text:      #2d2a26;
+      --text-2:    #5c5650;
+      --text-3:    #9b9389;
+      --accent:    #c45d35;
+      --accent-bg: #fdf3ee;
+      --green:     #5b8a5e;
+      --green-bg:  #f0f5f0;
+      --purple:    #6b7b96;
+      --purple-bg: #f0f2f5;
+      --amber:     #b8860b;
+      --amber-bg:  #faf5e8;
+      --cyan:      #4d8a9e;
+      --cyan-bg:   #eef5f7;
+      --red:       #b85450;
+      --red-bg:    #faf0ef;
+      --border:    #e5ddd4;
       --r:         14px;
       --r-lg:      20px;
-      --shadow:    0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
-      --shadow-lg: 0 4px 20px rgba(0,0,0,.07);
+      --shadow:    0 1px 3px rgba(45,42,38,.05), 0 4px 12px rgba(45,42,38,.04);
+      --shadow-lg: 0 4px 20px rgba(45,42,38,.08);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -69,12 +69,27 @@
       vertical-align: -2px;
     }
 
+    /* AWS service icons */
+    .aws-icon {
+      display: inline-flex;
+      width: 16px;
+      height: 16px;
+      vertical-align: -3px;
+      flex-shrink: 0;
+    }
+    .aws-icon svg { width: 100%; height: 100%; }
+    .aws-icon.lg { width: 22px; height: 22px; vertical-align: 0; }
+    .skill-icon .aws-icon { width: 22px; height: 22px; }
+    .skill-icon .aws-icon svg { width: 100%; height: 100%; }
+    .principle-icon .aws-icon { width: 24px; height: 24px; }
+    .principle-icon .aws-icon svg { width: 100%; height: 100%; }
+
     /* Navbar */
     nav {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255,255,255,.88);
+      background: rgba(250,248,245,.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
@@ -129,7 +144,7 @@
       font-weight: 600;
       transition: background .2s;
     }
-    .nav-cta:hover { background: #334155; }
+    .nav-cta:hover { background: #453a32; }
 
     .mob-tabs {
       display: flex;
@@ -162,7 +177,7 @@
       padding: .3rem .8rem;
       border-radius: 999px;
       background: var(--green-bg);
-      border: 1px solid #bbf7d0;
+      border: 1px solid #c2d9c3;
       font-size: .78rem;
       color: var(--green);
       font-weight: 600;
@@ -175,8 +190,8 @@
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(22,163,74,.35); }
-      50%     { box-shadow: 0 0 0 5px rgba(22,163,74,0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(91,138,94,.35); }
+      50%     { box-shadow: 0 0 0 5px rgba(91,138,94,0); }
     }
     h1 {
       font-size: 2.25rem;
@@ -221,12 +236,12 @@
       font-size: .92rem;
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 14px rgba(37,99,235,.3);
+      box-shadow: 0 4px 14px rgba(196,93,53,.25);
       transition: transform .2s, box-shadow .2s;
     }
     .hero-cta a:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37,99,235,.35);
+      box-shadow: 0 6px 20px rgba(196,93,53,.3);
     }
 
     .stats {
@@ -282,7 +297,7 @@
       padding: .2rem .6rem;
       border-radius: 6px;
       background: var(--green-bg);
-      border: 1px solid #bbf7d0;
+      border: 1px solid #c2d9c3;
       font-size: .7rem;
       font-weight: 600;
       color: var(--green);
@@ -371,8 +386,8 @@
     .p-card:hover::after { opacity: 1; }
     .p-card.c1::after { background: linear-gradient(90deg, var(--cyan), var(--accent)); }
     .p-card.c2::after { background: linear-gradient(90deg, var(--green), var(--cyan)); }
-    .p-card.c3::after { background: linear-gradient(90deg, var(--purple), #ec4899); }
-    .p-card.c4::after { background: linear-gradient(90deg, var(--amber), #ef4444); }
+    .p-card.c3::after { background: linear-gradient(90deg, var(--purple), var(--accent)); }
+    .p-card.c4::after { background: linear-gradient(90deg, var(--amber), var(--red)); }
 
     .p-num {
       position: absolute;
@@ -423,7 +438,7 @@
       color: var(--accent);
       transition: color .2s;
     }
-    .p-links a:hover { color: #1d4ed8; }
+    .p-links a:hover { color: #a34a28; }
 
     /* Skill Cards */
     .skill-cards {
@@ -528,8 +543,8 @@
       padding: .7rem 1.2rem; transition: transform .2s, box-shadow .2s;
       cursor: pointer; border: none;
     }
-    .btn-fill { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(37,99,235,.25); }
-    .btn-fill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,.3); }
+    .btn-fill { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(196,93,53,.25); }
+    .btn-fill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196,93,53,.3); }
     .btn-out { border: 1px solid var(--border); background: var(--surface); color: var(--text-2); }
     .btn-out:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .contact-note {
@@ -698,11 +713,11 @@
             automated deploys via CodePipeline&nbsp;+&nbsp;CodeBuild, and CloudWatch alarms for 5xx monitoring.
           </p>
           <div class="p-chips">
-            <span class="p-chip"><i data-lucide="hard-drive" class="sm"></i> S3 (private + OAC)</span>
-            <span class="p-chip"><i data-lucide="globe" class="sm"></i> CloudFront</span>
-            <span class="p-chip"><i data-lucide="map-pin" class="sm"></i> Route 53 + ACM</span>
-            <span class="p-chip"><i data-lucide="git-merge" class="sm"></i> CodePipeline</span>
-            <span class="p-chip"><i data-lucide="activity" class="sm"></i> CloudWatch</span>
+            <span class="p-chip" data-aws="s3">S3 (private + OAC)</span>
+            <span class="p-chip" data-aws="cloudfront">CloudFront</span>
+            <span class="p-chip" data-aws="route53">Route 53 + ACM</span>
+            <span class="p-chip" data-aws="codepipeline">CodePipeline</span>
+            <span class="p-chip" data-aws="cloudwatch">CloudWatch</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee/AWS-PORTFOLIO-WEBSITE" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -718,12 +733,12 @@
             RDS PostgreSQL in isolated subnets. API Gateway entry, Cognito JWT, bastion host, full CI/CD with CodePipeline&nbsp;+&nbsp;ECR.
           </p>
           <div class="p-chips">
-            <span class="p-chip"><i data-lucide="network" class="sm"></i> VPC (6 subnets, 2 AZs)</span>
-            <span class="p-chip"><i data-lucide="scaling" class="sm"></i> ALB + Auto Scaling</span>
-            <span class="p-chip"><i data-lucide="router" class="sm"></i> API Gateway</span>
-            <span class="p-chip"><i data-lucide="database" class="sm"></i> RDS PostgreSQL</span>
-            <span class="p-chip"><i data-lucide="shield" class="sm"></i> Cognito</span>
-            <span class="p-chip"><i data-lucide="code" class="sm"></i> Terraform</span>
+            <span class="p-chip" data-aws="vpc">VPC (6 subnets, 2 AZs)</span>
+            <span class="p-chip" data-aws="alb">ALB + Auto Scaling</span>
+            <span class="p-chip" data-aws="apigateway">API Gateway</span>
+            <span class="p-chip" data-aws="rds">RDS PostgreSQL</span>
+            <span class="p-chip" data-aws="cognito">Cognito</span>
+            <span class="p-chip" data-aws="terraform">Terraform</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -738,13 +753,13 @@
             DynamoDB, EventBridge async decoupling, canary deploys via CodeDeploy. 100% Terraform.
           </p>
           <div class="p-chips">
-            <span class="p-chip"><i data-lucide="zap" class="sm"></i> Lambda (&#215;6)</span>
-            <span class="p-chip"><i data-lucide="router" class="sm"></i> API Gateway (&#215;2)</span>
-            <span class="p-chip"><i data-lucide="database" class="sm"></i> DynamoDB</span>
-            <span class="p-chip"><i data-lucide="shield" class="sm"></i> Cognito</span>
-            <span class="p-chip"><i data-lucide="radio" class="sm"></i> EventBridge</span>
-            <span class="p-chip"><i data-lucide="scan-search" class="sm"></i> X-Ray</span>
-            <span class="p-chip"><i data-lucide="code" class="sm"></i> Terraform</span>
+            <span class="p-chip" data-aws="lambda">Lambda (&#215;6)</span>
+            <span class="p-chip" data-aws="apigateway">API Gateway (&#215;2)</span>
+            <span class="p-chip" data-aws="dynamodb">DynamoDB</span>
+            <span class="p-chip" data-aws="cognito">Cognito</span>
+            <span class="p-chip" data-aws="eventbridge">EventBridge</span>
+            <span class="p-chip" data-aws="xray">X-Ray</span>
+            <span class="p-chip" data-aws="terraform">Terraform</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -760,13 +775,13 @@
             with automatic compensation. SQS buffering, DynamoDB dual-layer idempotency, EventBridge domain events.
           </p>
           <div class="p-chips">
-            <span class="p-chip"><i data-lucide="workflow" class="sm"></i> Step Functions</span>
-            <span class="p-chip"><i data-lucide="zap" class="sm"></i> Lambda</span>
-            <span class="p-chip"><i data-lucide="database" class="sm"></i> DynamoDB</span>
-            <span class="p-chip"><i data-lucide="mail" class="sm"></i> SQS + DLQ</span>
-            <span class="p-chip"><i data-lucide="router" class="sm"></i> API Gateway</span>
-            <span class="p-chip"><i data-lucide="radio" class="sm"></i> EventBridge</span>
-            <span class="p-chip"><i data-lucide="code" class="sm"></i> Terraform</span>
+            <span class="p-chip" data-aws="stepfunctions">Step Functions</span>
+            <span class="p-chip" data-aws="lambda">Lambda</span>
+            <span class="p-chip" data-aws="dynamodb">DynamoDB</span>
+            <span class="p-chip" data-aws="sqs">SQS + DLQ</span>
+            <span class="p-chip" data-aws="apigateway">API Gateway</span>
+            <span class="p-chip" data-aws="eventbridge">EventBridge</span>
+            <span class="p-chip" data-aws="terraform">Terraform</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -787,29 +802,29 @@
       <div class="skill-cards">
         <div class="skill-card">
           <div class="skill-card-header">
-            <div class="skill-icon" style="background:var(--cyan-bg);color:var(--cyan);"><i data-lucide="server"></i></div>
+            <div class="skill-icon" style="background:var(--cyan-bg);color:var(--cyan);" data-aws="ec2"></div>
             <h3>Compute &amp; Networking</h3>
           </div>
           <div class="pills">
-            <span class="pill"><i data-lucide="server" class="sm"></i> EC2</span>
-            <span class="pill"><i data-lucide="scaling" class="sm"></i> Auto Scaling Groups</span>
-            <span class="pill"><i data-lucide="network" class="sm"></i> VPC &amp; Subnets</span>
+            <span class="pill" data-aws="ec2">EC2</span>
+            <span class="pill" data-aws="asg">Auto Scaling Groups</span>
+            <span class="pill" data-aws="vpc">VPC &amp; Subnets</span>
             <span class="pill"><i data-lucide="route" class="sm"></i> Route Tables &amp; NAT</span>
-            <span class="pill"><i data-lucide="split" class="sm"></i> ALB / NLB</span>
-            <span class="pill"><i data-lucide="globe" class="sm"></i> CloudFront CDN</span>
-            <span class="pill"><i data-lucide="map-pin" class="sm"></i> Route 53 DNS</span>
-            <span class="pill"><i data-lucide="lock" class="sm"></i> ACM (TLS)</span>
+            <span class="pill" data-aws="alb">ALB / NLB</span>
+            <span class="pill" data-aws="cloudfront">CloudFront CDN</span>
+            <span class="pill" data-aws="route53">Route 53 DNS</span>
+            <span class="pill" data-aws="acm">ACM (TLS)</span>
           </div>
         </div>
         <div class="skill-card">
           <div class="skill-card-header">
-            <div class="skill-icon" style="background:var(--green-bg);color:var(--green);"><i data-lucide="database"></i></div>
+            <div class="skill-icon" style="background:var(--green-bg);color:var(--green);" data-aws="dynamodb"></div>
             <h3>Storage &amp; Databases</h3>
           </div>
           <div class="pills">
-            <span class="pill"><i data-lucide="hard-drive" class="sm"></i> S3 + OAC</span>
-            <span class="pill"><i data-lucide="database" class="sm"></i> RDS PostgreSQL</span>
-            <span class="pill"><i data-lucide="database" class="sm"></i> DynamoDB</span>
+            <span class="pill" data-aws="s3">S3 + OAC</span>
+            <span class="pill" data-aws="rds">RDS PostgreSQL</span>
+            <span class="pill" data-aws="dynamodb">DynamoDB</span>
             <span class="pill"><i data-lucide="copy" class="sm"></i> Multi-AZ Replication</span>
             <span class="pill"><i data-lucide="timer" class="sm"></i> Lifecycle Policies</span>
             <span class="pill"><i data-lucide="lock" class="sm"></i> Encryption at Rest</span>
@@ -817,33 +832,33 @@
         </div>
         <div class="skill-card">
           <div class="skill-card-header">
-            <div class="skill-icon" style="background:var(--purple-bg);color:var(--purple);"><i data-lucide="zap"></i></div>
+            <div class="skill-icon" style="background:var(--purple-bg);color:var(--purple);" data-aws="lambda"></div>
             <h3>Serverless &amp; Event-Driven</h3>
           </div>
           <div class="pills">
-            <span class="pill"><i data-lucide="zap" class="sm"></i> Lambda</span>
-            <span class="pill"><i data-lucide="router" class="sm"></i> API Gateway (REST &amp; HTTP)</span>
-            <span class="pill"><i data-lucide="workflow" class="sm"></i> Step Functions</span>
-            <span class="pill"><i data-lucide="radio" class="sm"></i> EventBridge</span>
-            <span class="pill"><i data-lucide="mail" class="sm"></i> SQS / SNS</span>
-            <span class="pill"><i data-lucide="shield" class="sm"></i> Cognito</span>
+            <span class="pill" data-aws="lambda">Lambda</span>
+            <span class="pill" data-aws="apigateway">API Gateway (REST &amp; HTTP)</span>
+            <span class="pill" data-aws="stepfunctions">Step Functions</span>
+            <span class="pill" data-aws="eventbridge">EventBridge</span>
+            <span class="pill" data-aws="sqs">SQS / SNS</span>
+            <span class="pill" data-aws="cognito">Cognito</span>
             <span class="pill"><i data-lucide="alert-triangle" class="sm"></i> DLQ &amp; Retry</span>
           </div>
         </div>
         <div class="skill-card">
           <div class="skill-card-header">
-            <div class="skill-icon" style="background:var(--amber-bg);color:var(--amber);"><i data-lucide="wrench"></i></div>
+            <div class="skill-icon" style="background:var(--amber-bg);color:var(--amber);" data-aws="codepipeline"></div>
             <h3>DevOps &amp; Tooling</h3>
           </div>
           <div class="pills">
-            <span class="pill"><i data-lucide="code" class="sm"></i> Terraform / IaC</span>
-            <span class="pill"><i data-lucide="git-merge" class="sm"></i> CodePipeline</span>
-            <span class="pill"><i data-lucide="hammer" class="sm"></i> CodeBuild</span>
-            <span class="pill"><i data-lucide="rocket" class="sm"></i> CodeDeploy (canary)</span>
-            <span class="pill"><i data-lucide="activity" class="sm"></i> CloudWatch Alarms</span>
-            <span class="pill"><i data-lucide="scan-search" class="sm"></i> X-Ray Tracing</span>
-            <span class="pill"><i data-lucide="key" class="sm"></i> IAM &amp; Policies</span>
-            <span class="pill"><i data-lucide="shield" class="sm"></i> WAF</span>
+            <span class="pill" data-aws="terraform">Terraform / IaC</span>
+            <span class="pill" data-aws="codepipeline">CodePipeline</span>
+            <span class="pill" data-aws="codebuild">CodeBuild</span>
+            <span class="pill" data-aws="codedeploy">CodeDeploy (canary)</span>
+            <span class="pill" data-aws="cloudwatch">CloudWatch Alarms</span>
+            <span class="pill" data-aws="xray">X-Ray Tracing</span>
+            <span class="pill" data-aws="iam">IAM &amp; Policies</span>
+            <span class="pill" data-aws="waf">WAF</span>
           </div>
         </div>
         <div class="skill-card">
@@ -862,16 +877,16 @@
         </div>
         <div class="skill-card">
           <div class="skill-card-header">
-            <div class="skill-icon" style="background:var(--red-bg);color:var(--red);"><i data-lucide="shield"></i></div>
+            <div class="skill-icon" style="background:var(--red-bg);color:var(--red);" data-aws="iam"></div>
             <h3>Security &amp; Best Practices</h3>
           </div>
           <div class="pills">
-            <span class="pill"><i data-lucide="key" class="sm"></i> Least Privilege IAM</span>
-            <span class="pill"><i data-lucide="lock" class="sm"></i> Private Subnets</span>
+            <span class="pill" data-aws="iam">Least Privilege IAM</span>
+            <span class="pill" data-aws="vpc">Private Subnets</span>
             <span class="pill"><i data-lucide="shield" class="sm"></i> Security Groups</span>
-            <span class="pill"><i data-lucide="shield-check" class="sm"></i> WAF Rules</span>
-            <span class="pill"><i data-lucide="fingerprint" class="sm"></i> Cognito JWT Auth</span>
-            <span class="pill"><i data-lucide="vault" class="sm"></i> Secrets Manager</span>
+            <span class="pill" data-aws="waf">WAF Rules</span>
+            <span class="pill" data-aws="cognito">Cognito JWT Auth</span>
+            <span class="pill" data-aws="secretsmanager">Secrets Manager</span>
           </div>
         </div>
       </div>
@@ -888,43 +903,37 @@
       </div>
       <div class="principles-grid">
         <div class="principle-card">
-          <div class="principle-icon" style="background:var(--cyan-bg);color:var(--cyan);">
-            <i data-lucide="shield-check"></i>
+          <div class="principle-icon" style="background:var(--cyan-bg);color:var(--cyan);" data-aws="iam">
           </div>
           <h3>Security by Default</h3>
           <p>Least-privilege IAM with no wildcard permissions. Private subnets for compute and data tiers, Cognito for authentication, and WAF rules as standard &#8212; not afterthoughts.</p>
         </div>
         <div class="principle-card">
-          <div class="principle-icon" style="background:var(--green-bg);color:var(--green);">
-            <i data-lucide="layers"></i>
+          <div class="principle-icon" style="background:var(--green-bg);color:var(--green);" data-aws="vpc">
           </div>
           <h3>Layered Architecture</h3>
           <p>Clear separation between presentation, application, and data tiers. Each layer scales independently and can be swapped without touching the rest of the stack.</p>
         </div>
         <div class="principle-card">
-          <div class="principle-icon" style="background:var(--purple-bg);color:var(--purple);">
-            <i data-lucide="activity"></i>
+          <div class="principle-icon" style="background:var(--purple-bg);color:var(--purple);" data-aws="cloudwatch">
           </div>
           <h3>Observability First</h3>
           <p>CloudWatch dashboards, X-Ray distributed tracing, structured logging, and 5xx alarms wired in from day one &#8212; not bolted on once something breaks in production.</p>
         </div>
         <div class="principle-card">
-          <div class="principle-icon" style="background:var(--amber-bg);color:var(--amber);">
-            <i data-lucide="code"></i>
+          <div class="principle-icon" style="background:var(--amber-bg);color:var(--amber);" data-aws="terraform">
           </div>
           <h3>Infrastructure as Code</h3>
           <p>Every resource defined in Terraform with remote state locking, modular structure, and tagged for cost tracking. Zero click-ops in any environment.</p>
         </div>
         <div class="principle-card">
-          <div class="principle-icon" style="background:var(--accent-bg);color:var(--accent);">
-            <i data-lucide="git-merge"></i>
+          <div class="principle-icon" style="background:var(--accent-bg);color:var(--accent);" data-aws="codepipeline">
           </div>
           <h3>Automated Delivery</h3>
           <p>Git push triggers build, test and deploy &#8212; CodePipeline orchestrates, CodeBuild compiles, CodeDeploy runs canary releases. Rollbacks are automatic, not manual.</p>
         </div>
         <div class="principle-card">
-          <div class="principle-icon" style="background:var(--red-bg);color:var(--red);">
-            <i data-lucide="alert-triangle"></i>
+          <div class="principle-icon" style="background:var(--red-bg);color:var(--red);" data-aws="stepfunctions">
           </div>
           <h3>Blast Radius Reduction</h3>
           <p>Failures stay contained &#8212; DLQs catch poison messages, Step Functions compensate failed saga steps, and multi-AZ deployments ensure no single point of failure.</p>
@@ -965,6 +974,46 @@
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
     lucide.createIcons();
+
+    /* AWS service icon inline SVGs — replace select Lucide icons with official AWS shapes */
+    const awsIcons = {
+      s3: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24.4 30.4l-4.4 2.3-4.4-2.3V9.6L20 7.3l4.4 2.3v21z" fill="#5b8a5e"/><path d="M15.6 9.6L20 7.3v25.4l-4.4-2.3V9.6z" fill="#4d7350"/><path d="M24.4 9.6L20 7.3v25.4l4.4-2.3V9.6z" fill="#5b8a5e"/><path d="M20 7.3l8-4.2v25.4l-8 4.2V7.3z" fill="#5b8a5e" opacity=".3"/><path d="M20 7.3L12 3.1v25.4l8 4.2V7.3z" fill="#4d7350" opacity=".3"/></svg>',
+      lambda: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8h-4l8 24h4l-4-12z" fill="#c45d35"/><path d="M24 8h4l-8 24h-4l4-12z" fill="#c45d35" opacity=".7"/></svg>',
+      cloudfront: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" stroke="#6b7b96" stroke-width="2" fill="none"/><ellipse cx="20" cy="20" rx="6" ry="12" stroke="#6b7b96" stroke-width="1.5" fill="none"/><line x1="8" y1="20" x2="32" y2="20" stroke="#6b7b96" stroke-width="1.5"/></svg>',
+      dynamodb: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="12" rx="10" ry="4" fill="#4d8a9e" opacity=".5"/><path d="M10 12v16c0 2.2 4.5 4 10 4s10-1.8 10-4V12" stroke="#4d8a9e" stroke-width="2" fill="none"/><ellipse cx="20" cy="12" rx="10" ry="4" stroke="#4d8a9e" stroke-width="2" fill="none"/></svg>',
+      vpc: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="6" width="28" height="28" rx="4" stroke="#5b8a5e" stroke-width="2" fill="none"/><rect x="12" y="12" width="16" height="16" rx="2" stroke="#5b8a5e" stroke-width="1.5" fill="none" stroke-dasharray="3 2"/><circle cx="20" cy="20" r="3" fill="#5b8a5e"/></svg>',
+      apigateway: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 8v24M26 8v24" stroke="#c45d35" stroke-width="2"/><path d="M14 14h12M14 20h12M14 26h12" stroke="#c45d35" stroke-width="1.5" opacity=".5"/><path d="M8 20h4M28 20h4" stroke="#c45d35" stroke-width="2"/></svg>',
+      stepfunctions: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="8" r="3" fill="#b8860b"/><circle cx="12" cy="20" r="3" fill="#b8860b"/><circle cx="28" cy="20" r="3" fill="#b8860b"/><circle cx="20" cy="32" r="3" fill="#b8860b"/><path d="M20 11v-0L12 17M20 11L28 17M12 23l8 6M28 23l-8 6" stroke="#b8860b" stroke-width="1.5"/></svg>',
+      cognito: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="14" r="5" stroke="#b85450" stroke-width="2" fill="none"/><path d="M10 32c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#b85450" stroke-width="2" fill="none"/></svg>',
+      eventbridge: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="5" fill="#c45d35" opacity=".3"/><circle cx="20" cy="20" r="5" stroke="#c45d35" stroke-width="2" fill="none"/><path d="M20 8v7M20 25v7M8 20h7M25 20h7" stroke="#c45d35" stroke-width="1.5"/><circle cx="20" cy="8" r="2" fill="#c45d35"/><circle cx="20" cy="32" r="2" fill="#c45d35"/><circle cx="8" cy="20" r="2" fill="#c45d35"/><circle cx="32" cy="20" r="2" fill="#c45d35"/></svg>',
+      ec2: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="20" height="20" rx="2" stroke="#c45d35" stroke-width="2" fill="none"/><rect x="14" y="14" width="12" height="12" rx="1" fill="#c45d35" opacity=".2"/><path d="M6 14h4M6 20h4M6 26h4M30 14h4M30 20h4M30 26h4M14 6v4M20 6v4M26 6v4M14 30v4M20 30v4M26 30v4" stroke="#c45d35" stroke-width="1.5"/></svg>',
+      rds: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="10" rx="10" ry="4" stroke="#4d8a9e" stroke-width="2" fill="none"/><path d="M10 10v8c0 2.2 4.5 4 10 4s10-1.8 10-4v-8" stroke="#4d8a9e" stroke-width="2" fill="none"/><path d="M10 18v8c0 2.2 4.5 4 10 4s10-1.8 10-4v-8" stroke="#4d8a9e" stroke-width="2" fill="none"/></svg>',
+      sqs: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="12" width="28" height="16" rx="3" stroke="#b8860b" stroke-width="2" fill="none"/><path d="M12 18h16M12 24h10" stroke="#b8860b" stroke-width="1.5" opacity=".5"/><path d="M6 16h3M6 24h3M31 16h3M31 24h3" stroke="#b8860b" stroke-width="1.5"/></svg>',
+      cloudwatch: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" stroke="#b85450" stroke-width="2" fill="none"/><path d="M20 12v8l5 5" stroke="#b85450" stroke-width="2" stroke-linecap="round"/></svg>',
+      route53: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" stroke="#6b7b96" stroke-width="2" fill="none"/><path d="M20 8a18 18 0 0 1 0 24M20 8a18 18 0 0 0 0 24" stroke="#6b7b96" stroke-width="1.2"/><path d="M8 20h24" stroke="#6b7b96" stroke-width="1.2"/><circle cx="20" cy="20" r="3" fill="#6b7b96"/></svg>',
+      codepipeline: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="20" r="4" stroke="#5b8a5e" stroke-width="2" fill="none"/><circle cx="30" cy="12" r="4" stroke="#5b8a5e" stroke-width="2" fill="none"/><circle cx="30" cy="28" r="4" stroke="#5b8a5e" stroke-width="2" fill="none"/><path d="M14 18l12-4M14 22l12 4" stroke="#5b8a5e" stroke-width="1.5"/></svg>',
+      codebuild: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="24" height="24" rx="3" stroke="#5b8a5e" stroke-width="2" fill="none"/><path d="M16 17l-4 3 4 3M24 17l4 3-4 3M22 14l-4 12" stroke="#5b8a5e" stroke-width="1.5" stroke-linecap="round"/></svg>',
+      codedeploy: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" stroke="#5b8a5e" stroke-width="2" fill="none"/><path d="M16 20l3 3 6-6" stroke="#5b8a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      xray: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" stroke="#b8860b" stroke-width="2" fill="none"/><circle cx="20" cy="20" r="6" stroke="#b8860b" stroke-width="1.5" fill="none" stroke-dasharray="3 2"/><circle cx="20" cy="20" r="2" fill="#b8860b"/></svg>',
+      iam: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6l12 6v10c0 6-5 11-12 14C13 33 8 28 8 22V12l12-6z" stroke="#b85450" stroke-width="2" fill="none"/><path d="M16 20l3 3 6-6" stroke="#b85450" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      waf: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6l12 6v10c0 6-5 11-12 14C13 33 8 28 8 22V12l12-6z" stroke="#c45d35" stroke-width="2" fill="none"/><path d="M14 20h12M14 16h12M14 24h12" stroke="#c45d35" stroke-width="1.2" opacity=".5"/></svg>',
+      terraform: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 8v9l8 4.5V12.5L15 8z" fill="#6b7b96"/><path d="M24 12.5v9l8-4.5V8l-8 4.5z" fill="#6b7b96" opacity=".6"/><path d="M6 12.5V21l8 4.5v-9L6 12.5z" fill="#6b7b96" opacity=".4"/><path d="M15 22.5V31l8 4.5v-9L15 22.5z" fill="#6b7b96"/></svg>',
+      acm: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="18" width="16" height="14" rx="2" stroke="#b85450" stroke-width="2" fill="none"/><path d="M15 18v-4a5 5 0 0 1 10 0v4" stroke="#b85450" stroke-width="2" fill="none"/><circle cx="20" cy="25" r="2" fill="#b85450"/></svg>',
+      alb: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" stroke="#6b7b96" stroke-width="2" fill="none"/><path d="M14 16h12M14 20h12M14 24h12" stroke="#6b7b96" stroke-width="1.5"/><path d="M20 10v4M20 26v4" stroke="#6b7b96" stroke-width="1.5"/></svg>',
+      secretsmanager: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="16" width="16" height="16" rx="2" stroke="#b85450" stroke-width="2" fill="none"/><path d="M15 16v-3a5 5 0 0 1 10 0v3" stroke="#b85450" stroke-width="2" fill="none"/><path d="M20 22v4" stroke="#b85450" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="22" r="1.5" fill="#b85450"/></svg>',
+      asg: '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="14" width="10" height="10" rx="1.5" stroke="#c45d35" stroke-width="1.5" fill="none"/><rect x="16" y="10" width="10" height="10" rx="1.5" stroke="#c45d35" stroke-width="1.5" fill="none"/><rect x="14" y="20" width="10" height="10" rx="1.5" stroke="#c45d35" stroke-width="1.5" fill="none"/><path d="M30 16l3 4-3 4" stroke="#c45d35" stroke-width="1.5" stroke-linecap="round"/></svg>'
+    };
+
+    /* Inject AWS icons into pills/chips that have data-aws attribute */
+    document.querySelectorAll('[data-aws]').forEach(el => {
+      const key = el.getAttribute('data-aws');
+      if (awsIcons[key]) {
+        const span = document.createElement('span');
+        span.className = 'aws-icon';
+        span.innerHTML = awsIcons[key];
+        el.prepend(span);
+      }
+    });
   </script>
 </body>
 </html>
