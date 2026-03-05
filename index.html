@@ -403,6 +403,9 @@
     .p-desc { font-size: .88rem; color: var(--text-2); line-height: 1.65; }
     .p-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .15rem; }
     .p-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
       padding: .16rem .55rem;
       border-radius: 6px;
       border: 1px solid var(--border);
@@ -458,6 +461,9 @@
 
     .pills { display: flex; flex-wrap: wrap; gap: .45rem; }
     .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
       padding: .32rem .75rem;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -618,8 +624,9 @@
           Every project here runs on AWS with real traffic.
         </p>
         <div class="hero-tags">
-          <span class="htag"><i data-lucide="award" class="sm"></i> AWS SAA-C03</span>
-          <span class="htag"><i data-lucide="code" class="sm"></i> Terraform</span>
+          <span class="htag"><i data-lucide="award" class="sm"></i> AWS Solutions Architect Associate</span>
+          <span class="htag"><i data-lucide="award" class="sm"></i> AWS Developer Associate</span>
+          <span class="htag"><i data-lucide="award" class="sm"></i> Terraform Associate</span>
           <span class="htag"><i data-lucide="zap" class="sm"></i> Serverless</span>
           <span class="htag"><i data-lucide="git-branch" class="sm"></i> CI/CD</span>
         </div>
@@ -691,11 +698,11 @@
             automated deploys via CodePipeline&nbsp;+&nbsp;CodeBuild, and CloudWatch alarms for 5xx monitoring.
           </p>
           <div class="p-chips">
-            <span class="p-chip">S3 (private + OAC)</span>
-            <span class="p-chip">CloudFront</span>
-            <span class="p-chip">Route 53 + ACM</span>
-            <span class="p-chip">CodePipeline</span>
-            <span class="p-chip">CloudWatch</span>
+            <span class="p-chip"><i data-lucide="hard-drive" class="sm"></i> S3 (private + OAC)</span>
+            <span class="p-chip"><i data-lucide="globe" class="sm"></i> CloudFront</span>
+            <span class="p-chip"><i data-lucide="map-pin" class="sm"></i> Route 53 + ACM</span>
+            <span class="p-chip"><i data-lucide="git-merge" class="sm"></i> CodePipeline</span>
+            <span class="p-chip"><i data-lucide="activity" class="sm"></i> CloudWatch</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee/AWS-PORTFOLIO-WEBSITE" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -711,12 +718,12 @@
             RDS PostgreSQL in isolated subnets. API Gateway entry, Cognito JWT, bastion host, full CI/CD with CodePipeline&nbsp;+&nbsp;ECR.
           </p>
           <div class="p-chips">
-            <span class="p-chip">VPC (6 subnets, 2 AZs)</span>
-            <span class="p-chip">ALB + Auto Scaling</span>
-            <span class="p-chip">API Gateway</span>
-            <span class="p-chip">RDS PostgreSQL</span>
-            <span class="p-chip">Cognito</span>
-            <span class="p-chip">Terraform</span>
+            <span class="p-chip"><i data-lucide="network" class="sm"></i> VPC (6 subnets, 2 AZs)</span>
+            <span class="p-chip"><i data-lucide="scaling" class="sm"></i> ALB + Auto Scaling</span>
+            <span class="p-chip"><i data-lucide="router" class="sm"></i> API Gateway</span>
+            <span class="p-chip"><i data-lucide="database" class="sm"></i> RDS PostgreSQL</span>
+            <span class="p-chip"><i data-lucide="shield" class="sm"></i> Cognito</span>
+            <span class="p-chip"><i data-lucide="code" class="sm"></i> Terraform</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -731,13 +738,13 @@
             DynamoDB, EventBridge async decoupling, canary deploys via CodeDeploy. 100% Terraform.
           </p>
           <div class="p-chips">
-            <span class="p-chip">Lambda (&#215;6)</span>
-            <span class="p-chip">API Gateway (&#215;2)</span>
-            <span class="p-chip">DynamoDB</span>
-            <span class="p-chip">Cognito</span>
-            <span class="p-chip">EventBridge</span>
-            <span class="p-chip">X-Ray</span>
-            <span class="p-chip">Terraform</span>
+            <span class="p-chip"><i data-lucide="zap" class="sm"></i> Lambda (&#215;6)</span>
+            <span class="p-chip"><i data-lucide="router" class="sm"></i> API Gateway (&#215;2)</span>
+            <span class="p-chip"><i data-lucide="database" class="sm"></i> DynamoDB</span>
+            <span class="p-chip"><i data-lucide="shield" class="sm"></i> Cognito</span>
+            <span class="p-chip"><i data-lucide="radio" class="sm"></i> EventBridge</span>
+            <span class="p-chip"><i data-lucide="scan-search" class="sm"></i> X-Ray</span>
+            <span class="p-chip"><i data-lucide="code" class="sm"></i> Terraform</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -753,13 +760,13 @@
             with automatic compensation. SQS buffering, DynamoDB dual-layer idempotency, EventBridge domain events.
           </p>
           <div class="p-chips">
-            <span class="p-chip">Step Functions</span>
-            <span class="p-chip">Lambda</span>
-            <span class="p-chip">DynamoDB</span>
-            <span class="p-chip">SQS + DLQ</span>
-            <span class="p-chip">API Gateway</span>
-            <span class="p-chip">EventBridge</span>
-            <span class="p-chip">Terraform</span>
+            <span class="p-chip"><i data-lucide="workflow" class="sm"></i> Step Functions</span>
+            <span class="p-chip"><i data-lucide="zap" class="sm"></i> Lambda</span>
+            <span class="p-chip"><i data-lucide="database" class="sm"></i> DynamoDB</span>
+            <span class="p-chip"><i data-lucide="mail" class="sm"></i> SQS + DLQ</span>
+            <span class="p-chip"><i data-lucide="router" class="sm"></i> API Gateway</span>
+            <span class="p-chip"><i data-lucide="radio" class="sm"></i> EventBridge</span>
+            <span class="p-chip"><i data-lucide="code" class="sm"></i> Terraform</span>
           </div>
           <div class="p-links">
             <a href="https://github.com/shaunniee" target="_blank" rel="noopener"><i data-lucide="external-link" class="sm"></i> Code</a>
@@ -784,14 +791,14 @@
             <h3>Compute &amp; Networking</h3>
           </div>
           <div class="pills">
-            <span class="pill">EC2</span>
-            <span class="pill">Auto Scaling Groups</span>
-            <span class="pill">VPC &amp; Subnets</span>
-            <span class="pill">Route Tables &amp; NAT</span>
-            <span class="pill">ALB / NLB</span>
-            <span class="pill">CloudFront CDN</span>
-            <span class="pill">Route 53 DNS</span>
-            <span class="pill">ACM (TLS)</span>
+            <span class="pill"><i data-lucide="server" class="sm"></i> EC2</span>
+            <span class="pill"><i data-lucide="scaling" class="sm"></i> Auto Scaling Groups</span>
+            <span class="pill"><i data-lucide="network" class="sm"></i> VPC &amp; Subnets</span>
+            <span class="pill"><i data-lucide="route" class="sm"></i> Route Tables &amp; NAT</span>
+            <span class="pill"><i data-lucide="split" class="sm"></i> ALB / NLB</span>
+            <span class="pill"><i data-lucide="globe" class="sm"></i> CloudFront CDN</span>
+            <span class="pill"><i data-lucide="map-pin" class="sm"></i> Route 53 DNS</span>
+            <span class="pill"><i data-lucide="lock" class="sm"></i> ACM (TLS)</span>
           </div>
         </div>
         <div class="skill-card">
@@ -800,12 +807,12 @@
             <h3>Storage &amp; Databases</h3>
           </div>
           <div class="pills">
-            <span class="pill">S3 + OAC</span>
-            <span class="pill">RDS PostgreSQL</span>
-            <span class="pill">DynamoDB</span>
-            <span class="pill">Multi-AZ Replication</span>
-            <span class="pill">Lifecycle Policies</span>
-            <span class="pill">Encryption at Rest</span>
+            <span class="pill"><i data-lucide="hard-drive" class="sm"></i> S3 + OAC</span>
+            <span class="pill"><i data-lucide="database" class="sm"></i> RDS PostgreSQL</span>
+            <span class="pill"><i data-lucide="database" class="sm"></i> DynamoDB</span>
+            <span class="pill"><i data-lucide="copy" class="sm"></i> Multi-AZ Replication</span>
+            <span class="pill"><i data-lucide="timer" class="sm"></i> Lifecycle Policies</span>
+            <span class="pill"><i data-lucide="lock" class="sm"></i> Encryption at Rest</span>
           </div>
         </div>
         <div class="skill-card">
@@ -814,13 +821,13 @@
             <h3>Serverless &amp; Event-Driven</h3>
           </div>
           <div class="pills">
-            <span class="pill">Lambda</span>
-            <span class="pill">API Gateway (REST &amp; HTTP)</span>
-            <span class="pill">Step Functions</span>
-            <span class="pill">EventBridge</span>
-            <span class="pill">SQS / SNS</span>
-            <span class="pill">Cognito</span>
-            <span class="pill">DLQ &amp; Retry</span>
+            <span class="pill"><i data-lucide="zap" class="sm"></i> Lambda</span>
+            <span class="pill"><i data-lucide="router" class="sm"></i> API Gateway (REST &amp; HTTP)</span>
+            <span class="pill"><i data-lucide="workflow" class="sm"></i> Step Functions</span>
+            <span class="pill"><i data-lucide="radio" class="sm"></i> EventBridge</span>
+            <span class="pill"><i data-lucide="mail" class="sm"></i> SQS / SNS</span>
+            <span class="pill"><i data-lucide="shield" class="sm"></i> Cognito</span>
+            <span class="pill"><i data-lucide="alert-triangle" class="sm"></i> DLQ &amp; Retry</span>
           </div>
         </div>
         <div class="skill-card">
@@ -829,14 +836,14 @@
             <h3>DevOps &amp; Tooling</h3>
           </div>
           <div class="pills">
-            <span class="pill">Terraform / IaC</span>
-            <span class="pill">CodePipeline</span>
-            <span class="pill">CodeBuild</span>
-            <span class="pill">CodeDeploy (canary)</span>
-            <span class="pill">CloudWatch Alarms</span>
-            <span class="pill">X-Ray Tracing</span>
-            <span class="pill">IAM &amp; Policies</span>
-            <span class="pill">WAF</span>
+            <span class="pill"><i data-lucide="code" class="sm"></i> Terraform / IaC</span>
+            <span class="pill"><i data-lucide="git-merge" class="sm"></i> CodePipeline</span>
+            <span class="pill"><i data-lucide="hammer" class="sm"></i> CodeBuild</span>
+            <span class="pill"><i data-lucide="rocket" class="sm"></i> CodeDeploy (canary)</span>
+            <span class="pill"><i data-lucide="activity" class="sm"></i> CloudWatch Alarms</span>
+            <span class="pill"><i data-lucide="scan-search" class="sm"></i> X-Ray Tracing</span>
+            <span class="pill"><i data-lucide="key" class="sm"></i> IAM &amp; Policies</span>
+            <span class="pill"><i data-lucide="shield" class="sm"></i> WAF</span>
           </div>
         </div>
         <div class="skill-card">
@@ -845,12 +852,12 @@
             <h3>Languages &amp; Frameworks</h3>
           </div>
           <div class="pills">
-            <span class="pill">Node.js</span>
-            <span class="pill">Python</span>
-            <span class="pill">JavaScript / React</span>
-            <span class="pill">HTML / CSS</span>
-            <span class="pill">Bash scripting</span>
-            <span class="pill">HCL (Terraform)</span>
+            <span class="pill"><i data-lucide="hexagon" class="sm"></i> Node.js</span>
+            <span class="pill"><i data-lucide="file-code" class="sm"></i> Python</span>
+            <span class="pill"><i data-lucide="braces" class="sm"></i> JavaScript / React</span>
+            <span class="pill"><i data-lucide="file-text" class="sm"></i> HTML / CSS</span>
+            <span class="pill"><i data-lucide="terminal" class="sm"></i> Bash scripting</span>
+            <span class="pill"><i data-lucide="code" class="sm"></i> HCL (Terraform)</span>
           </div>
         </div>
         <div class="skill-card">
@@ -859,12 +866,12 @@
             <h3>Security &amp; Best Practices</h3>
           </div>
           <div class="pills">
-            <span class="pill">Least Privilege IAM</span>
-            <span class="pill">Private Subnets</span>
-            <span class="pill">Security Groups</span>
-            <span class="pill">WAF Rules</span>
-            <span class="pill">Cognito JWT Auth</span>
-            <span class="pill">Secrets Manager</span>
+            <span class="pill"><i data-lucide="key" class="sm"></i> Least Privilege IAM</span>
+            <span class="pill"><i data-lucide="lock" class="sm"></i> Private Subnets</span>
+            <span class="pill"><i data-lucide="shield" class="sm"></i> Security Groups</span>
+            <span class="pill"><i data-lucide="shield-check" class="sm"></i> WAF Rules</span>
+            <span class="pill"><i data-lucide="fingerprint" class="sm"></i> Cognito JWT Auth</span>
+            <span class="pill"><i data-lucide="vault" class="sm"></i> Secrets Manager</span>
           </div>
         </div>
       </div>
