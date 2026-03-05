@@ -828,7 +828,7 @@
               <div>
                 <p class="hero-card-title">Portfolio snapshot</p>
                 <div class="hero-card-metric">
-                  <span class="value">7</span>
+                  <span class="value">4</span>
                   <span class="sublabel">AWS projects</span>
                 </div>
               </div>
@@ -837,32 +837,32 @@
 
             <div class="hero-card-grid">
               <div class="metric-card">
-                <div class="metric-label">Static & edge</div>
-                <div class="metric-value">S3 · CloudFront · WAF</div>
+                <div class="metric-label">Static + edge</div>
+                <div class="metric-value">S3 · CloudFront · CI/CD</div>
                 <div class="legend">
                   <div class="legend-item">
                     <span class="legend-swatch"></span>
-                    Public portfolio
+                    Portfolio site
                   </div>
                 </div>
               </div>
               <div class="metric-card">
-                <div class="metric-label">App patterns</div>
-                <div class="metric-value">3-tier + serverless</div>
+                <div class="metric-label">3-tier app</div>
+                <div class="metric-value">VPC · ALB · EC2 · RDS</div>
                 <div class="legend">
                   <div class="legend-item">
                     <span class="legend-swatch alt"></span>
-                    VPC + RDS
+                    Blog App
                   </div>
                 </div>
               </div>
               <div class="metric-card">
-                <div class="metric-label">Data & messaging</div>
-                <div class="metric-value">SQS · Kinesis · IoT</div>
+                <div class="metric-label">Serverless full-stack</div>
+                <div class="metric-value">Lambda · API GW · DynamoDB</div>
               </div>
               <div class="metric-card">
-                <div class="metric-label">AI & documents</div>
-                <div class="metric-value">Textract · Bedrock</div>
+                <div class="metric-label">Event-driven</div>
+                <div class="metric-value">Step Functions · SQS · Saga</div>
               </div>
             </div>
           </aside>
@@ -880,74 +880,106 @@
           </div>
 
           <div class="grid-projects">
-            <!-- Project 1 -->
+            <!-- Project 1: Static Portfolio Site -->
             <article class="project-card">
               <div class="project-pill">Static site · Edge</div>
-              <h3 class="project-title">AWS Cloud Portfolio (this site)</h3>
+              <h3 class="project-title">Static Portfolio Site (this site)</h3>
               <p class="project-desc">
-                Static portfolio hosted on S3, fronted by CloudFront and protected with WAF. GitHub → CodePipeline powers
-                CI/CD with cache invalidations and basic monitoring.
+                Static portfolio on a private S3 bucket delivered globally via CloudFront with OAC. Custom domain on Route 53 with ACM TLS,
+                CI/CD via CodePipeline + CodeBuild with automatic cache invalidation, and CloudWatch alarms for 5xx monitoring.
               </p>
               <div class="project-meta">
-                <span class="meta-chip">S3 website hosting</span>
-                <span class="meta-chip">CloudFront + WAF</span>
-                <span class="meta-chip">Route 53</span>
-                <span class="meta-chip">CodePipeline</span>
+                <span class="meta-chip">S3 (private + OAC)</span>
+                <span class="meta-chip">CloudFront</span>
+                <span class="meta-chip">Route 53 + ACM</span>
+                <span class="meta-chip">CodePipeline + CodeBuild</span>
+                <span class="meta-chip">CloudWatch alarms</span>
               </div>
               <div class="project-links">
-                <a href="https://github.com/shaunniee/aws-static-portfolio" target="_blank" rel="noopener">
+                <a href="https://github.com/shaunniee/AWS-PORTFOLIO-WEBSITE" target="_blank" rel="noopener">
                   <span class="icon">↗</span> View code
                 </a>
-                <a href="docs/static-portfolio-architecture.pdf" target="_blank" rel="noopener">
-                  <span class="icon">🧾</span> Architecture notes
+                <a href="https://www.shaunvividszportfolio.com" target="_blank" rel="noopener">
+                  <span class="icon">🌐</span> Live site
                 </a>
               </div>
             </article>
 
-            <!-- Project 2 -->
+            <!-- Project 2: Three-Tier Blog App -->
             <article class="project-card">
               <div class="project-pill">VPC · 3-tier</div>
-              <h3 class="project-title">TaskFlow · Classic 3-tier architecture</h3>
+              <h3 class="project-title">Blog App · Three-Tier Architecture</h3>
               <p class="project-desc">
-                3-tier app with public web tier, private app tier and RDS in isolated subnets. Covers routing, security groups,
-                NAT vs IGW decisions and a path to serverless.
+                Production-style 3-tier web app: React SPA on S3/CloudFront, Node.js/Express on EC2 Auto Scaling behind an internal ALB,
+                and RDS PostgreSQL in isolated private subnets. API Gateway as the public entry point, Cognito JWT auth, bastion host for admin access,
+                and full CI/CD with CodePipeline + ECR.
               </p>
               <div class="project-meta">
-                <span class="meta-chip">ALB + EC2</span>
-                <span class="meta-chip">Private subnets</span>
-                <span class="meta-chip">RDS (PostgreSQL)</span>
-                <span class="meta-chip">SSM Session Manager</span>
+                <span class="meta-chip">VPC (6 subnets, 2 AZs)</span>
+                <span class="meta-chip">ALB + EC2 Auto Scaling</span>
+                <span class="meta-chip">API Gateway</span>
+                <span class="meta-chip">RDS PostgreSQL (Multi-AZ)</span>
+                <span class="meta-chip">Cognito</span>
+                <span class="meta-chip">CodePipeline + ECR</span>
+                <span class="meta-chip">Terraform</span>
               </div>
               <div class="project-links">
-                <a href="https://github.com/shaunniee/aws-3tier-taskflow" target="_blank" rel="noopener">
+                <a href="https://github.com/shaunniee" target="_blank" rel="noopener">
                   <span class="icon">↗</span> View code
-                </a>
-                <a href="docs/taskflow-network-diagram.png" target="_blank" rel="noopener">
-                  <span class="icon">🗺</span> Network diagram
                 </a>
               </div>
             </article>
 
-            <!-- Project 3 -->
+            <!-- Project 3: Serverless Blog Platform -->
             <article class="project-card">
-              <div class="project-pill">Serverless · API</div>
-              <h3 class="project-title">Serverless Blog & CRM</h3>
+              <div class="project-pill">Serverless · Full-stack</div>
+              <h3 class="project-title">Serverless Blog Platform</h3>
               <p class="project-desc">
-                Blog platform where posts are created via a CRM frontend. API Gateway + Lambda + DynamoDB on the backend,
-                S3 for media and Cognito for auth.
+                Production-style fully serverless blog with two frontends (public + admin CMS), two separate API Gateways with different auth levels,
+                6 single-purpose Lambda functions with per-function IAM, DynamoDB, EventBridge for async decoupling,
+                and canary deployments via CodeDeploy with automatic rollback. 100% Terraform.
               </p>
               <div class="project-meta">
-                <span class="meta-chip">API Gateway</span>
-                <span class="meta-chip">Lambda</span>
+                <span class="meta-chip">Lambda (×6)</span>
+                <span class="meta-chip">API Gateway (×2)</span>
                 <span class="meta-chip">DynamoDB</span>
                 <span class="meta-chip">Cognito</span>
+                <span class="meta-chip">EventBridge</span>
+                <span class="meta-chip">S3 + CloudFront</span>
+                <span class="meta-chip">Terraform</span>
+                <span class="meta-chip">X-Ray</span>
               </div>
               <div class="project-links">
-                <a href="https://github.com/shaunniee/aws-serverless-blog" target="_blank" rel="noopener">
+                <a href="https://github.com/shaunniee" target="_blank" rel="noopener">
                   <span class="icon">↗</span> View code
                 </a>
-                <a href="docs/serverless-blog-notes.md" target="_blank" rel="noopener">
-                  <span class="icon">🧠</span> Design decisions
+                <a href="https://www.sblog.stsproj.com" target="_blank" rel="noopener">
+                  <span class="icon">🌐</span> Live site
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 4: Serverless Ordering System -->
+            <article class="project-card">
+              <div class="project-pill">Serverless · Event-driven</div>
+              <h3 class="project-title">Serverless Ordering System</h3>
+              <p class="project-desc">
+                High-scale event-driven order processing pipeline designed for 10,000+ orders/min. Uses the Saga pattern via Step Functions Express
+                for distributed transactions with automatic compensation on failure. SQS for buffering and retry, DynamoDB with dual-layer idempotency,
+                and EventBridge for domain event publishing. Fully IaC with Terraform.
+              </p>
+              <div class="project-meta">
+                <span class="meta-chip">Step Functions (Saga)</span>
+                <span class="meta-chip">Lambda</span>
+                <span class="meta-chip">DynamoDB</span>
+                <span class="meta-chip">SQS + DLQ</span>
+                <span class="meta-chip">API Gateway</span>
+                <span class="meta-chip">EventBridge</span>
+                <span class="meta-chip">Terraform</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/shaunniee" target="_blank" rel="noopener">
+                  <span class="icon">↗</span> View code
                 </a>
               </div>
             </article>
